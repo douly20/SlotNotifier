@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+
+  "name": "CoWin Slot Notifier",
+  "description": "This extension is the demo extension for Douly",
+  "version": "2.0",
+  "icons": {
+    "48": "notify.png"
+  },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "background":{
+    "scripts": ["VaccineNotifier.js","SlotProcessor.js"]
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "alarms",
+    "notifications",
+    "https://ajax.googleapis.com/",
+    "http://cdn-api.co-vin.in/"
+
+  ]
+}
