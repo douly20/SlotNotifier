@@ -2,7 +2,8 @@ var slotData = '';
 var reset = false;
 async function getVaccineSlots(pinCode) {
     console.log("Preparing to call get vaccine slots");
-    var todayDate = (new Date()).toLocaleDateString().replaceAll("/","-");
+    var todayDate = (new Date()).toLocaleDateString("en-IN").replaceAll("/","-");
+    console.log(todayDate);
     var api = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pinCode}&date=${todayDate}`;  
     var requestOptions = {
         method: 'GET',
@@ -19,6 +20,7 @@ async function getVaccineSlots(pinCode) {
 
 chrome.alarms.onAlarm.addListener((alarm) => {
     console.log(alarm.name); // refresh
+    if(alarm.name === 'vaccineSlots') {
     getFromLocalStorage('pincode').then((pin)=> {
         console.log('pin received s',pin);
         if(pin) {
@@ -27,6 +29,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             console.log('No pin code saved');
         }
     });
+    }
     
   });
 

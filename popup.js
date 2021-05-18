@@ -10,19 +10,13 @@ function include(file) {
 include('./VaccineNotifier.js');
 include('./SlotProcessor.js');
 
-
 console.log("Extension is playing");
 window.onload = function () {
     checkIfScriptAlreadyRunning();
     document.getElementById("submit").onclick = submitValue;
     document.getElementById("pin").onchange = validateInput;
+    
 }
-
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('onInstalled...');
-    // create alarm after extension is installed / upgraded
-    chrome.alarms.create('fetch', { periodInMinutes: 1 });
-});
 
 function validateInput() {
     var pinCode = document.getElementById("pin").value;
@@ -46,6 +40,7 @@ function submitValue() {
 function triggerSlotCheckingScript() {
     var pinCode = document.getElementById("pin").value;
     if(pinCode && pinCode.length==6) {
+        setAlarmListenerForSlots();
         storeOnLocalStorage(pinCode);
         getVaccineSlots(pinCode);
         loadRunningScriptView(pinCode);
@@ -98,6 +93,16 @@ function clearLocalStorage() {
             console.error(error);
           }
        })
+}
+
+function setAlarmListenerForSlots() {
+    console.log('Triggering the alarm for slots...');
+        chrome.alarms.create('vaccineSlots', { periodInMinutes: 1 });
+}
+
+function clearAlarmListenerForSlots() {
+    console.log('Clearing the alarm for slots...');
+    chrome.alarms.clear("fetch");
 }
 
 
