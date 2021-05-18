@@ -1,6 +1,6 @@
 # CoWin Vaccine Slot Notifier
 
-It is a chrome extension which can simplify your vaccine slot hunt, and notify you via desktop notifications (and a ringtone ..tada :P) once they are available.
+It is a chrome extension which can simplify your vaccine slot hunt, and notify you via desktop notifications (and a ringtone ..tada :stuck_out_tongue:) once they are available.
 
 ## Features
  * Search vaccines by your pin code.
@@ -10,16 +10,17 @@ It is a chrome extension which can simplify your vaccine slot hunt, and notify y
 
 ## Installation
 
-Open your chrome extensions [page](chrome://extensions/).
+Open your chrome extensions page from chrome://extensions/  
 You can open it alternatively by going to Chrome settings -> More Tools -> Extensions
 
-On the right top corner turn on the developer mode(yayy :))
+On the right top corner turn on the developer mode (yayy :grin:)
 
 Out of three tabs displayed in the bottom tray , click Load unpacked.
 
 Now choose your destination path of SlotNotifier repository.
 
-That's it.!!
+That's it.!! :clap:
+
 You have installed the extension and you should be able to see it in your extensions page.
 
 (Note: Since this is an unpublished extension , it can be used only in developer mode. Try it on your own risk)
