@@ -5,7 +5,7 @@ class VaccineNotifier{
             'id001',
             {
                 type:'basic',
-                iconUrl:"notify.png",
+                iconUrl:"../media/icons/notify.png",
                 title : "Vaccine slots available",
                 message: msg,
                 priority:2,
@@ -30,7 +30,7 @@ class VaccineNotifier{
      }
 
      audioNotification(){
-        var yourSound = new Audio('goes-without-saying-608.mp3');
+        var yourSound = new Audio('../media/ringtone.mp3');
         yourSound.play();
     }
 

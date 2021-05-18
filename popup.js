@@ -7,8 +7,8 @@ function include(file) {
     document.getElementsByTagName('head').item(0).appendChild(script);
   }
     
-include('./VaccineNotifier.js');
-include('./SlotProcessor.js');
+include('background-scripts/VaccineNotifier.js');
+include('background-scripts/SlotProcessor.js');
 
 console.log("Extension is playing");
 window.onload = function () {

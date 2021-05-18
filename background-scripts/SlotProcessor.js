@@ -1,6 +1,6 @@
 var slotData = '';
 var reset = false;
-async function getVaccineSlots(pinCode) {
+function getVaccineSlots(pinCode) {
     console.log("Preparing to call get vaccine slots");
     var todayDate = (new Date()).toLocaleDateString("en-IN").replaceAll("/","-");
     console.log(todayDate);
@@ -13,8 +13,7 @@ async function getVaccineSlots(pinCode) {
     fetch(api, requestOptions)
     .then(response => response.text())
     .then(result => processVaccineData(result))
-    .catch(error => console.log('error', error));
-    // await new Promise(resolve => setTimeout(resolve, 30000));
+    .catch(error => console.log('Error getting response from api', error));
     
 }
 
@@ -62,7 +61,7 @@ function notifyUser(centersMap) {
     if(centersMap.size>0 && compareIfSlotDataHasChanged(centersMap)) {
         var centreList = "\n";
         centersMap.forEach((b,a)=>centreList+=a+" : "+b.slots+"\n");
-        var msg = 'Vaccine Slots Are Currently Available In '+centersMap.size+' CENTERS :'+centreList;
+        var msg = 'Vaccine Slots Are Currently Available In '+centersMap.size+' Centers :'+centreList;
         var s = new VaccineNotifier(msg);
     }
    
