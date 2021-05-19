@@ -1,35 +1,27 @@
-
 function include(file) {
-    var script  = document.createElement('script');
-    script.src  = file;
+    var script = document.createElement('script');
+    script.src = file;
     script.type = 'text/javascript';
     script.defer = true;
     document.getElementsByTagName('head').item(0).appendChild(script);
-  }
-    
+}
+
 include('background-scripts/VaccineNotifier.js');
 include('background-scripts/SlotProcessor.js');
 
 console.log("Extension is playing");
-window.onload = function () {
+window.onload = function() {
     checkIfScriptAlreadyRunning();
     document.getElementById("submit").onclick = submitValue;
-    document.getElementById("pin").onchange = validateInput;
-    
-}
+    Array.prototype.forEach.call(document.getElementsByClassName("radiobtn"), function(el) {
+        el.addEventListener('click', handleAgeSelectEvent, false);
+    });
 
-function validateInput() {
-    var pinCode = document.getElementById("pin").value;
-    if(pinCode && pinCode.length==6) {
-        document.getElementById("submit").disabled = false;
-    } else {
-        document.getElementById("submit").disabled = true;
-    }
 }
 
 function submitValue() {
     var button = document.getElementById("submit").textContent;
-    if(button == "Submit") {
+    if (button == "Submit") {
         triggerSlotCheckingScript();
     } else {
         stopSlotCheckingScript();
@@ -37,13 +29,23 @@ function submitValue() {
 
 }
 
+function handleAgeSelectEvent(el) {
+    if(el.target.id=="18plus") {
+        document.getElementById("45plus").checked = false;
+    } else {
+        document.getElementById("18plus").checked = false;
+    }
+}
+
 function triggerSlotCheckingScript() {
-    var pinCode = document.getElementById("pin").value;
-    if(pinCode && pinCode.length==6) {
+    let pinCode = document.getElementById("pin").value;
+    let age = document.getElementById("18plus").checked == true ? 18 : 45;
+    let userData = {pin:pinCode,age:age};
+    if (pinCode && pinCode.length == 6) {
         setAlarmListenerForSlots();
-        storeOnLocalStorage(pinCode);
-        getVaccineSlots(pinCode);
-        loadRunningScriptView(pinCode);
+        storeOnLocalStorage(userData);
+        getVaccineSlots(userData);
+        loadRunningScriptView(userData);
     } else {
         alert("Invalid pincode");
     }
@@ -51,63 +53,80 @@ function triggerSlotCheckingScript() {
 
 function stopSlotCheckingScript() {
     clearLocalStorage();
-    document.getElementById("info").style.display="none";
-    document.getElementById("title").style.display = "block";
+    setStylesForHtmlElementsByClass("create","display","block");
+    setStylesForHtmlElementsByClass("view","display","none");
     document.getElementById("submit").innerHTML = "Submit";
     document.getElementById("pin").value = "";
-    document.getElementById("pin").disabled=false;
+    document.getElementById("pin").disabled = false;
+    select18plusAgeRadioButton();
+
 }
 
 function checkIfScriptAlreadyRunning() {
-    getFromLocalStorage('pincode').then((pin)=> {
-        if(pin) {
-            loadRunningScriptView(pin);
+    getUserDataFromLocalStorage().then((data) => {
+        if (data) {
+            loadRunningScriptView(data);
         } else {
-            document.getElementById("info").style.display="none";
+            select18plusAgeRadioButton();
+            document.getElementById("info").style.display = "none";
             console.log('No pin code saved');
         }
     });
 }
 
-function loadRunningScriptView(pin) {
-    document.getElementById("info").style.display="block";
-    document.getElementById("title").style.display = "none";
+function loadRunningScriptView(userData) {
+    setStylesForHtmlElementsByClass("view","display","block");
+    setStylesForHtmlElementsByClass("create","display","none");
     document.getElementById("submit").innerHTML = "Stop";
-    document.getElementById("pin").value = pin;
-    document.getElementById("pin").disabled=true;
+    document.getElementById("pin").value = userData.pin;
+    document.getElementById("pin").disabled = true;
+    if(userData.age==45) {
+        select45plusAgeRadioButton();
+    } else {
+        select18plusAgeRadioButton();
+    }
 }
 
-function storeOnLocalStorage(pin) {
-    chrome.storage.local.set({'pincode': pin}, () => {
+function select18plusAgeRadioButton() {
+    document.getElementById("18plus").checked = true;
+    document.getElementById("45plus").checked = false;
+}
+
+function select45plusAgeRadioButton() {
+    document.getElementById("18plus").checked = false;
+    document.getElementById("45plus").checked = true;
+}
+
+function setStylesForHtmlElementsByClass(className,cssprop,val) {
+    Array.prototype.forEach.call(document.getElementsByClassName(className), function(el) {
+        el.style[cssprop]=val;
+    });
+}
+
+function storeOnLocalStorage(data) {
+    chrome.storage.local.set({ 'userData': data }, () => {
         if (chrome.runtime.lastError)
             console.log('Error setting');
-    
-        console.log('Stored name: ' + pin);
+
+        console.log('Stored name: ' , data);
     });
 }
 
 function clearLocalStorage() {
     chrome.storage.local.clear(function() {
         var error = chrome.runtime.lastError;
-          if (error) {
+        if (error) {
             console.error(error);
-          }
-       })
+        }
+    })
 }
 
 function setAlarmListenerForSlots() {
     console.log('Triggering the alarm for slots...');
-        chrome.alarms.create('vaccineSlots', { periodInMinutes: 1 });
+    chrome.alarms.create('vaccineSlots', { periodInMinutes: 1 });
 }
 
 function clearAlarmListenerForSlots() {
     console.log('Clearing the alarm for slots...');
     chrome.alarms.clear("fetch");
 }
-
-
-
-
-
-
-    

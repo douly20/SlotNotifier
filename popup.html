@@ -1,22 +1,45 @@
 <html>
 
 <head>
-<title>CoWin Slots</title>
-<script src="popup.js"></script>
-<link rel="stylesheet" href="popup.css">
-
-
+    <title>CoWin Slots</title>
+    <script src="popup.js"></script>
+    <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
-<div>
     <div>
-    <h4 id="title" class="label">Check vaccine slots availablity</h4>
-    <h4 id="info" class="label">Vaccine Slots are currenlty being checked for pin:</h4>
-    <input id="pin" type="text" name="pincode" value="" title="pincode" placeholder="Enter your pincode"/>
+        <div>
+            <div class="section">
+                <div class="heading">
+                <h4 id="title" class="label create">Check vaccine slots availablity</h4>
+                <h4 id="info" class="label view">Vaccine slots are currently being checked for pin:</h4>
+                </div>
+                <div class="inputBox">
+                <input id="pin" type="text" name="pincode" value="" title="pincode" placeholder="Enter your pincode" />
+                </div>
+            </div>
+            <div class="section" id="ageSelector">
+                <div class="heading">
+                <h4 class="label create">Select your age group:</h4>
+                <h4 class="label view" id="ageDisplay">Selected age group:</h4>
+                </div>
+                <div class="radiogroup" style="display: flex;">
+                    <div>
+                        <input type="radio" class="radiobtn" id="18plus" value="18">
+                        <label class="label">18-44 years</label>
+                    </div>
+                    <div>
+                        <input type="radio" class="radiobtn" value="45" id="45plus">
+                        <label class="label">45+ years</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 12px; margin-right: 5px;">
+        <button id="submit" class="btn-primary">Submit</button>
     </div>
-    <button id="submit" class="btn-primary">Submit</button>
 
-</div>
+    </div>
 </body>
-</html>
 
+</html>

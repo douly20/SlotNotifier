@@ -1,10 +1,15 @@
+html {
+    height: max-content;
+    padding: 10px;
+    width: 220px;
+}
 .btn-primary {
-    float:right;
+    float: right;
     background: #1a73e8;
-    color:white;
+    color: white;
     border-radius: 5px;
-    padding:5px 10px;
-    cursor:pointer;
+    padding: 5px 10px;
+    cursor: pointer;
     border: 1px solid transparent;
     border-top-color: transparent;
     border-top-style: solid;
@@ -23,23 +28,79 @@
     border-image-width: initial;
     border-image-outset: initial;
     border-image-repeat: initial;
+    z-index: 12;
 }
-button[disabled]{
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
+
+button[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
 }
+
 body {
+    margin: 5px;
     align-items: center;
     vertical-align: middle;
+    height: max-content;
+    background-color: #f5f4f0;
 }
-div{
-    margin:5px;
+
+input{
+    background-color: #eff9e6;
 }
+
+div {
+    margin: 0px;
+}
+
 .label {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:'Orienta' sans-serif;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.section {
+    background-color: #e4e4e5;
+    border-radius: 8px;
+    padding: 3px;
+    max-height: fit-content;
+    margin:3px;
+}
+.inputBox {
+    padding:8px;
+    margin-bottom:5px;
+    margin-top: 1px;;
+}
+.heading {
+    margin-top:2px;
+    margin-left:5px;
+    margin-bottom:2px;
+}
+
+.radiogroup {
+    display: flex;
+    padding:5px;
     margin-bottom:5px;
 }
+
 #pswd {
-    margin : 5px 0px;
+    margin: 5px 0px;
+}
+
+#pin{
+    border-radius: 10px;
+    padding: 5px 10px 5px 15px;
+    outline: none;
+    letter-spacing: 0.5px;
+    border-color: black;
+    border-width: 1px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+h4{
+    font-weight: 447;
+    font-size: 13.5px;
+}
+#ageDisplay{
+    display: none;
 }

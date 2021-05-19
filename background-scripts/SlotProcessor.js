@@ -1,10 +1,10 @@
 var slotData = '';
 var reset = false;
-function getVaccineSlots(pinCode) {
+function getVaccineSlots(userData) {
     console.log("Preparing to call get vaccine slots");
     var todayDate = (new Date()).toLocaleDateString("en-IN").replaceAll("/","-");
     console.log(todayDate);
-    var api = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pinCode}&date=${todayDate}`;  
+    var api = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${userData.pin}&date=${todayDate}`;  
     var requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -12,7 +12,7 @@ function getVaccineSlots(pinCode) {
 
     fetch(api, requestOptions)
     .then(response => response.text())
-    .then(result => processVaccineData(result))
+    .then(result => processVaccineData(result,userData))
     .catch(error => console.log('Error getting response from api', error));
     
 }
@@ -20,8 +20,7 @@ function getVaccineSlots(pinCode) {
 chrome.alarms.onAlarm.addListener((alarm) => {
     console.log(alarm.name); // refresh
     if(alarm.name === 'vaccineSlots') {
-    getFromLocalStorage('pincode').then((pin)=> {
-        console.log('pin received s',pin);
+        getUserDataFromLocalStorage().then((pin)=> {
         if(pin) {
             getVaccineSlots(pin);
         } else {
@@ -32,7 +31,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     
   });
 
-function processVaccineData(data) {
+function processVaccineData(data,userData) {
     let availableSlots=[];
     let centersMap = new Map();
     data = JSON.parse(data);
@@ -40,7 +39,7 @@ function processVaccineData(data) {
     for(let center of data.centers) {
         if(center && center.sessions) {
             for(let session of center.sessions) {
-                if(session!=null && session['min_age_limit']==18 && session['available_capacity'] > 0) {
+                if(session!=null && session['min_age_limit']==userData.age && session['available_capacity'] > 0) {
                     availableSlots.push({address:center.address,slots:session['available_capacity'],vaccine:session.vaccine,date:session.date});
                 }
             }
@@ -98,14 +97,14 @@ function getSum(total, num) {
     return total + num.slots;
 }
 
-async function getFromLocalStorage(key) {
+async function getUserDataFromLocalStorage() {
     return new Promise((resolve,reject)=>{
-        chrome.storage.local.get([key], (result) => {
+        chrome.storage.local.get(["userData"], (result) => {
             if (chrome.runtime.lastError)
-                reject('Error getting');
+                reject('Error getting local data');
         
-            console.log('Retrieved name: ', result.pincode);
-            resolve(result.pincode);
+            console.log('Retrieved name: ', result.userData);
+            resolve(result.userData);
         });
     }); 
 }
