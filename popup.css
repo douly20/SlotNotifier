@@ -104,11 +104,13 @@ h4{
 
 #banner{
     margin: -5px -10px 10px;
-    font-size: 1.7em;
+    font-size: 1.5em;
     font-weight:600;
     color: white;
     background: #012d68;
     text-align: center;
     /* border-radius: 15px 15px 0px 0px; */
-    padding: 7px;
+    padding: 6px;
+    padding-top: 2px;
+    vertical-align: middle;
 }
