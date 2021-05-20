@@ -11,12 +11,40 @@ include('background-scripts/SlotProcessor.js');
 
 console.log("Extension is playing");
 window.onload = function() {
-    checkIfScriptAlreadyRunning();
+    checkIfScriptAlreadyRunningAndLoadView();
+    addEventHandlersToDOM();
+}
+
+function checkIfScriptAlreadyRunningAndLoadView() {
+    getUserDataFromLocalStorage().then((data) => {
+        if (data) {
+            loadAlreadyRunningScriptView(data);
+        } else {
+            select18plusAgeRadioButton();
+            document.getElementById("info").style.display = "none";
+        }
+    });
+}
+
+function addEventHandlersToDOM() {
     document.getElementById("submit").onclick = submitValue;
     Array.prototype.forEach.call(document.getElementsByClassName("radiobtn"), function(el) {
         el.addEventListener('click', handleAgeSelectEvent, false);
     });
+}
 
+function loadAlreadyRunningScriptView(userData) {
+    setDisplayStylesForHtmlElementsByClass("view","display");
+    setDisplayStylesForHtmlElementsByClass("create","display");
+    document.getElementById("submit").innerHTML = "Stop";
+    document.getElementById("pin").value = userData.pin;
+    document.getElementById("pin").disabled = true;
+    disableAgeGroupBtn();
+    if(userData.age==45) {
+        select45plusAgeRadioButton();
+    } else {
+        select18plusAgeRadioButton();
+    }
 }
 
 function submitValue() {
@@ -63,32 +91,6 @@ function stopSlotCheckingScript() {
     select18plusAgeRadioButton();
 }
 
-function checkIfScriptAlreadyRunning() {
-    getUserDataFromLocalStorage().then((data) => {
-        if (data) {
-            loadRunningScriptView(data);
-        } else {
-            select18plusAgeRadioButton();
-            document.getElementById("info").style.display = "none";
-            console.log('No pin code saved');
-        }
-    });
-}
-
-function loadRunningScriptView(userData) {
-    setStylesForHtmlElementsByClass("view","display","block");
-    setStylesForHtmlElementsByClass("create","display","none");
-    document.getElementById("submit").innerHTML = "Stop";
-    document.getElementById("pin").value = userData.pin;
-    document.getElementById("pin").disabled = true;
-    disableAgeGroupBtn();
-    if(userData.age==45) {
-        select45plusAgeRadioButton();
-    } else {
-        select18plusAgeRadioButton();
-    }
-}
-
 function select18plusAgeRadioButton() {
     document.getElementById("18plus").checked = true;
     document.getElementById("45plus").checked = false;
@@ -99,9 +101,9 @@ function select45plusAgeRadioButton() {
     document.getElementById("45plus").checked = true;
 }
 
-function setStylesForHtmlElementsByClass(className,cssprop,val) {
+function setDisplayStylesForHtmlElementsByClass(className,val) {
     Array.prototype.forEach.call(document.getElementsByClassName(className), function(el) {
-        el.style[cssprop]=val;
+        el.style.display=val;
     });
 }
 
@@ -130,7 +132,7 @@ function setAlarmListenerForSlots() {
 
 function clearAlarmListenerForSlots() {
     console.log('Clearing the alarm for slots...');
-    chrome.alarms.clear("fetch");
+    chrome.alarms.clear("vaccineSlots");
 }
 
 function enableAgeGroupBtn() {

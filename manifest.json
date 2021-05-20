@@ -8,7 +8,7 @@
     "48": "media/icons/notify.png"
   },
   "browser_action": {
-    "default_icon": "media/icons/vaccine.png",
+    "default_icon": "media/icons/vaccine_1.png",
     "default_popup": "popup.html"
   },
   "background":{
