@@ -6,6 +6,7 @@ It is a chrome extension which can simplify your vaccine slot hunt, and notify y
  * Search vaccines by your pin code.
  * Get desktop notifications when vaccines slots are available
  * Get updated data for slots every 1-minute.
+ * Find vaccines even after shutting down your chrome, once extension has been set to check.
  
 
 ## Installation
@@ -28,10 +29,11 @@ You have installed the extension and you should be able to see it in your extens
 ## Usage
 
 Open the extension.  In the pop up box you can put the pin code of the area for which you wish to check the slots.
-Click on Submit.
+Click on Submit.  
+
 ![Create screen](media/images/create_screen.png)
 
-The script for checking the slots has been triggered. It will keep on running in background checking the slots ..while you can continue sipping your coffee :P
+The script for checking the slots has been triggered. It will keep on running in background checking the slots ..while you can continue sipping your coffee :stuck_out_tongue:
 
 ![View screen](media/images/view_screen.png)
 
@@ -39,6 +41,16 @@ The script for checking the slots has been triggered. It will keep on running in
 You will get notifications when slots in your area are available.
 
 You can open the extension anytime and check the current pincode for which slots are being checked. Also, you have the option to stop the script anytime you wish.
+
+These are desktop notifications,so even when you are using other apps on your system,you will receive them.If you are using Windows, you can also access them from your system tray.
+
+### Notifications In Windows
+![Windows notification](media/images/notification_windows.jpeg)
+
+
+### Notifications In Linux
+![Ubuntu notification](media/images/notification_ubuntu.png)
+
 
 ---
 **NOTE**
