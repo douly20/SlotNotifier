@@ -1,9 +1,7 @@
 var slotData = '';
-var reset = false;
 function getVaccineSlots(userData) {
     console.log("Preparing to call get vaccine slots");
     var todayDate = (new Date()).toLocaleDateString("en-IN").replaceAll("/","-");
-    console.log(todayDate);
     var api = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${userData.pin}&date=${todayDate}`;  
     var requestOptions = {
         method: 'GET',
@@ -18,23 +16,22 @@ function getVaccineSlots(userData) {
 }
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-    console.log(alarm.name); // refresh
     if(alarm.name === 'vaccineSlots') {
-        getUserDataFromLocalStorage().then((pin)=> {
-        if(pin) {
-            getVaccineSlots(pin);
-        } else {
-            console.log('No pin code saved');
-        }
-    });
+        getUserDataFromLocalStorage().then((data)=> {
+            if(data) {
+                getVaccineSlots(data);
+            } else {
+                console.log('No pin code saved');
+            }
+        });
     }
     
-  });
+});
 
-function processVaccineData(data,userData) {
+function processVaccineData(vaccineSlotData,userData) {
     let availableSlots=[];
     let centersMap = new Map();
-    data = JSON.parse(data);
+    data = JSON.parse(vaccineSlotData);
     if(data && data.centers) {
     for(let center of data.centers) {
         if(center && center.sessions) {
