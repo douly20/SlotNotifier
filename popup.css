@@ -1,6 +1,6 @@
 html {
     height: max-content;
-    padding: 10px;
+    padding: 5px;
     width: 220px;
 }
 .btn-primary {
@@ -11,18 +11,9 @@ html {
     padding: 5px 10px;
     cursor: pointer;
     border: 1px solid transparent;
-    border-top-color: transparent;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-right-color: transparent;
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-bottom-color: transparent;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-left-color: transparent;
-    border-left-style: solid;
-    border-left-width: 1px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 1px;
     border-image-source: initial;
     border-image-slice: initial;
     border-image-width: initial;
@@ -38,7 +29,7 @@ button[disabled] {
 }
 
 body {
-    margin: 5px;
+    margin: 0px 5px;
     align-items: center;
     vertical-align: middle;
     height: max-content;
@@ -46,7 +37,10 @@ body {
 }
 
 input{
-    background-color: #eff9e6;
+    /* background-color: #eff9e6; */
+    color: #012d68;
+    font-weight: 500;
+    letter-spacing: .5px;
 }
 
 div {
@@ -60,7 +54,7 @@ div {
 }
 
 .section {
-    background-color: #e4e4e5;
+    background-color: #e8e8e8;
     border-radius: 8px;
     padding: 3px;
     max-height: fit-content;
@@ -92,15 +86,29 @@ div {
     padding: 5px 10px 5px 15px;
     outline: none;
     letter-spacing: 0.5px;
-    border-color: black;
+    /* border-color: black; */
+    font-weight: 900;
+    color: #012d68;
     border-width: 1px;
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
 }
 h4{
     font-weight: 447;
     font-size: 13.5px;
+    /* color: rgb(197, 4, 46); */
 }
 #ageDisplay{
     display: none;
+}
+
+#banner{
+    margin: -5px -10px 10px;
+    font-size: 1.7em;
+    font-weight:600;
+    color: white;
+    background: #012d68;
+    text-align: center;
+    /* border-radius: 15px 15px 0px 0px; */
+    padding: 7px;
 }
