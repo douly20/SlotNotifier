@@ -23,8 +23,10 @@ function submitValue() {
     var button = document.getElementById("submit").textContent;
     if (button == "Submit") {
         triggerSlotCheckingScript();
+        disableAgeGroupBtn();
     } else {
         stopSlotCheckingScript();
+        enableAgeGroupBtn();
     }
 
 }
@@ -59,7 +61,6 @@ function stopSlotCheckingScript() {
     document.getElementById("pin").value = "";
     document.getElementById("pin").disabled = false;
     select18plusAgeRadioButton();
-
 }
 
 function checkIfScriptAlreadyRunning() {
@@ -80,6 +81,7 @@ function loadRunningScriptView(userData) {
     document.getElementById("submit").innerHTML = "Stop";
     document.getElementById("pin").value = userData.pin;
     document.getElementById("pin").disabled = true;
+    disableAgeGroupBtn();
     if(userData.age==45) {
         select45plusAgeRadioButton();
     } else {
@@ -129,4 +131,18 @@ function setAlarmListenerForSlots() {
 function clearAlarmListenerForSlots() {
     console.log('Clearing the alarm for slots...');
     chrome.alarms.clear("fetch");
+}
+
+function enableAgeGroupBtn() {
+    var radioBtns = document.getElementsByClassName("radiobtn");
+    Array.prototype.forEach.call(radioBtns, function(radioBtn) {
+        radioBtn.disabled = false;
+    });
+}
+
+function disableAgeGroupBtn() {
+    var radioBtns = document.getElementsByClassName("radiobtn");
+    Array.prototype.forEach.call(radioBtns, function(radioBtn) {
+        radioBtn.disabled = true;
+    });
 }
