@@ -18,7 +18,7 @@ On the right top corner turn on the developer mode (yayy :grin:)
 
 Out of three tabs displayed in the bottom tray , click Load unpacked.
 
-Now choose your destination path of SlotNotifier repository.
+Now choose your destination path as the folder where you have cloned/downloaded the SlotNotifier repository.
 
 That's it.!! :clap:
 
@@ -51,6 +51,7 @@ These are desktop notifications,so even when you are using other apps on your sy
 ### Notifications In Linux
 ![Ubuntu notification](media/images/notification_ubuntu.png)
 
+***Feel free to clone/download and use it.If you like it, please star mark the repository as it motivates us to do better everyday.***
 
 ---
 **NOTE**
