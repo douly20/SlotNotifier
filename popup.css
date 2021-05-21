@@ -5,7 +5,7 @@ html {
 }
 .btn-primary {
     float: right;
-    background: #326ee4;
+    background: #39C16C;
     color: white;
     border-radius: 5px;
     padding: 5px 10px;
@@ -53,7 +53,7 @@ div {
 }
 
 .section {
-    background-color: #c1c1c187;
+    background-color: #abb2b552;
     border-radius: 12px;
     padding: 3px;
     max-height: fit-content;
@@ -105,13 +105,14 @@ h4{
     display: flex;
     margin: -5px -10px 10px;
     color: white;
-    background: #012d68;
+    background: #0b5dcca6;
     align-items: center;
+    height: 33px;
     /* justify-content: center; */
 }
 #main-heading{
     font-size: 1.3em;
-    font-weight:600;
+    font-weight:585;
     text-align: center;
     padding: 6px;
     margin: 0px;
