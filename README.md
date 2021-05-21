@@ -11,6 +11,8 @@ It is a chrome extension which can simplify your vaccine slot hunt, and notify y
 
 ## Installation
 
+Download the code as .zip file from the latest release and extract into your folder.
+
 Open your chrome extensions page from chrome://extensions/  
 You can open it alternatively by going to Chrome settings -> More Tools -> Extensions
 
