@@ -55,6 +55,40 @@ These are desktop notifications,so even when you are using other apps on your sy
 
 ***Feel free to clone/download and use it.If you like it, please star mark the repository as it motivates us to do better everyday.***
 
+## Technical Details
+Now as I have your attention, since you have scrolled this far..I assume you would be interested in knowing how this extension written in Javscript works.
+For the people already familiar with the development of chrome extension & chrome apis ..thats not hard to figure out. For the newbies I can explain in detail.
+Since this is a chrome extension , I have exploited few APIs provided by chrome for serving our purpose. 
+### Storage Api
+Since we needed to store the user information so that the background script can keep on picking that data.Also, when user opens the extension to check the running status, we needed to show the previously entered information.We have utilised the chrome local storage for this. Chrome provides an api to store and retreive data on local storage.They can be used in the following manner:
+```javscipt 
+ chrome.storage.local.set({ 'userData': data }, () => {
+        if (chrome.runtime.lastError)
+            console.log('Error setting');
+        console.log('Stored name: ' , data);
+    });
+```
+### Alarms Api
+The alarms api is at the heart of the background running script. The prime requirement was to have the slot checking script triggered every once in a while.With async await this could have been done but only till the user kept the extension open. 
+Other alternative was to mark the background script as persistent. Marking a script persitent means the script would keep on running in the background forever consuming resources all the time.It is generally not advised to use a persistent background script.
+The alarms api can set trigger for your background script. You can add an event handler that can handle the alarm event, and further process your background task.
+```
+ chrome.alarms.create('vaccineSlots', { periodInMinutes: 1 });
+```
+
+```
+ chrome.alarms.onAlarm.addListener((alarm) => {
+    if(alarm.name === 'vaccineSlots') {
+        getUserDataFromLocalStorage().then((data)=> {
+            if(data) {
+                getVaccineSlots(data);
+            } else {
+                console.log('No pin code saved');
+            }
+        });
+    }  
+});
+```
 ---
 **NOTE**
 
