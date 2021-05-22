@@ -53,7 +53,9 @@ These are desktop notifications,so even when you are using other apps on your sy
 ### Notifications In Linux
 ![Ubuntu notification](media/images/notification_ubuntu.png)
 
-***Feel free to clone/download and use it.If you like it, please star mark the repository as it motivates us to do better everyday.***
+
+### If you like the concept, please not only clone it, but also star mark :star: the repository as it motivates us to do better everyday
+---
 
 ## Technical Details
 Now as I have your attention, since you have scrolled this far..I assume you would be interested in knowing how this extension written in Javscript works.
