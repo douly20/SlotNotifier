@@ -1,5 +1,7 @@
 # CoWin Vaccine Slot Notifier
 
+![icon](media/icons/vaccine_1.png)
+
 It is a chrome extension which can simplify your vaccine slot hunt, and notify you via desktop notifications (and a ringtone ..tada :stuck_out_tongue:) once they are available.
 
 ## Features
